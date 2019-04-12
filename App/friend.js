@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { addFriend } from "../FriendActions";
 
 class Friends extends React.Component {
   render() {
@@ -10,7 +12,7 @@ class Friends extends React.Component {
           <Button
             key={friend}
             title={`Add ${friend}`}
-            onPress={() => this.props.screenProps.addFriend(index)}
+            onPress={() => this.props.addFriend(index)}
           />
         ))}
         <Button
@@ -36,4 +38,15 @@ const mapStateToProps = state => {
   return { friends };
 };
 
-export default connect(mapStateToProps)(Friends);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      addFriend
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Friends);
