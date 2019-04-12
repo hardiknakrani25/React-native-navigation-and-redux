@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import { SafeAreaView, Button, View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { connect } from "react-redux";
 
-export default class Friend extends Component {
+class Friends extends React.Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        {this.props.screenProps.possibleFriends.map((friend, index) => (
+      <View style={styles.container}>
+        {this.props.friends.possible.map((friend, index) => (
           <Button
             key={friend}
             title={`Add ${friend}`}
@@ -16,7 +17,7 @@ export default class Friend extends Component {
           title="Back to home"
           onPress={() => this.props.navigation.navigate("Home")}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -29,3 +30,10 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+const mapStateToProps = state => {
+  const { friends } = state;
+  return { friends };
+};
+
+export default connect(mapStateToProps)(Friends);

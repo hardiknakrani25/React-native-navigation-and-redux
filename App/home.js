@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Button, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { connect } from "react-redux";
 
-export default class Home extends Component {
+class Home extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}>
-          We have {this.props.screenProps.currentFriends.length} friends!
+          We have {this.props.friends.current.length} friends!
         </Text>
         <Button
           title="Add Friends"
@@ -25,3 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF"
   }
 });
+
+const mapStateToProps = state => {
+  const { friends } = state;
+  return { friends };
+};
+
+export default connect(mapStateToProps)(Home);
